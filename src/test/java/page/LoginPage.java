@@ -17,6 +17,7 @@ public class LoginPage {
     private final By resetYourPasswordTittlePage = By.xpath("//*[@id=\"firstHeading\"]");
     private final By joinProjectButton = By.xpath("//*[@id=\"mw-createaccount-join\"]");
     private final By joinProjectTittlePage = By.xpath("//*[@id=\"firstHeading\"]");
+    private final By invalidLoginAndPassword = By.xpath("//*[@id=\"userloginForm\"]/form/div[1]/div");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -77,5 +78,9 @@ public class LoginPage {
     public String checkTittleJoinProjectPage() {
         String text = driver.findElement(joinProjectTittlePage).getText();
         return text;
+    }
+
+    public String authorizationIsError() {
+        return driver.findElement(invalidLoginAndPassword).getText();
     }
 }

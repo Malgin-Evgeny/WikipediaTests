@@ -34,9 +34,10 @@ public class MainPage {
         driver.findElement(currentEventsButton).click();
     }
 
-    public void clickRandomArticlesButton(){
+    public void clickRandomArticlesButton() {
         driver.findElement(randomArticlesButton).click();
     }
+
     public String checkTitleMainPage() {
         String text = driver.findElement(mainPageTitle).getText();
         return text;
@@ -51,6 +52,5 @@ public class MainPage {
         String url = driver.getCurrentUrl();
         return url;
     }
-
 }
 
