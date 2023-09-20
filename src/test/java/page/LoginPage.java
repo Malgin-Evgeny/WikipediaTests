@@ -2,6 +2,7 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class LoginPage {
 
@@ -18,6 +19,12 @@ public class LoginPage {
     private final By joinProjectButton = By.xpath("//*[@id=\"mw-createaccount-join\"]");
     private final By joinProjectTittlePage = By.xpath("//*[@id=\"firstHeading\"]");
     private final By invalidLoginAndPassword = By.xpath("//*[@id=\"userloginForm\"]/form/div[1]/div");
+    private final By nickNameIcon = By.xpath("//*[@id=\"pt-userpage\"]");
+    private final By noticeIcon = By.id("pt-notifications-notice");
+    private final By buttonAllNotifications = By.xpath("/html/body/div[6]/div[4]/div[1]/div[3]/div/span/span[1]/a/span[2]");
+    private final By draftButton = By.id("pt-sandbox");
+    private final By settingButton = By.id("pt-preferences");
+    private final By listButton = By.id("pt-watchlist");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -43,11 +50,39 @@ public class LoginPage {
         driver.findElement(nickName).isDisplayed();
     }
 
+    public void checkNickNameIconIsVisible() {
+        driver.findElement(nickNameIcon).isDisplayed();
+    }
+
+    public void checkNotificIconIsVisible() {
+        driver.findElement(noticeIcon).isDisplayed();
+    }
+
+    public void clickNoticeButton() {
+        driver.findElement(noticeIcon).click();
+    }
+
+    public void clickAllNotifications() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(buttonAllNotifications))
+                .click()
+                .build()
+                .perform();
+    }
+
     public void attemptLogin(String login, String password) {
         clickJoinButton();
         setLogin(login);
         setPassword(password);
         clickLoginButton();
+    }
+
+    public void clickNickNameIconButton() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(nickNameIcon))
+                .click()
+                .build()
+                .perform();
     }
 
     public void clickLoginHelp() {
@@ -80,7 +115,36 @@ public class LoginPage {
         return text;
     }
 
+    public void clickDraftButton() {
+        driver.findElement(draftButton).click();
+    }
+
+    public void checkDraftIsVisible() {
+        driver.findElement(draftButton).isDisplayed();
+    }
+
+    public void clickSettingButton() {
+        driver.findElement(settingButton).click();
+    }
+
+    public void checkSettingIsVisible() {
+        driver.findElement(settingButton).isDisplayed();
+    }
+
+    public void clickListButton() {
+        driver.findElement(listButton).click();
+    }
+
+    public void checkListIsVisible() {
+        driver.findElement(listButton).isDisplayed();
+    }
+
     public String authorizationIsError() {
         return driver.findElement(invalidLoginAndPassword).getText();
+    }
+
+    public String checkTitle() {
+        String title = driver.getTitle();
+        return title;
     }
 }
