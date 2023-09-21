@@ -5,7 +5,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.LoginPage;
 
-
 public class AuthorizationTest extends BaseTest {
     private LoginPage loginPage;
 
@@ -23,14 +22,14 @@ public class AuthorizationTest extends BaseTest {
                                 "Введены неверные имя участника или пароль. Попробуйте ещё раз.")},
                 {"Analginchik", "123-", (ActionFunctionInterface) () ->
                         Assert.assertEquals(loginPage.authorizationIsError(),
-                                "Введены неверные имя участника или пароль. Попробуйте ещё раз.")}
+                                "Введены неверные имя участника или пароль. ")}
         };
     }
 
     @Test(dataProvider = "testAuthorization", testName = "Проверка авторизации на сайт")
     public void authorization(String login, String password, ActionFunctionInterface func) {
         LOG.info("Авторизация на сайте");
-        loginPage.attemptLogin(login,password);
+        loginPage.attemptLogin(login, password);
         func.apply();
     }
 
