@@ -8,26 +8,36 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverContainer {
+    private static WebDriver driver;
 
     public static WebDriver getDriver() {
-        WebDriver driver;
-        Browsers browsers = Browsers.valueOf(System.getProperty("browser", "chrome"));
+        if (driver == null) {
+            Browsers browsers = Browsers.valueOf(System.getProperty("browser", "chrome"));
 
-        switch (browsers) {
-            case firefox -> driver = new FirefoxDriver();
-            case ie -> {
-                EdgeOptions options1 = new EdgeOptions();
-                options1.addArguments("--remote-allow-origins=*");
-                driver = new EdgeDriver(options1);
-            }
-            default -> {
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--remote-allow-origins=*");
-                driver = new ChromeDriver(options);
+            switch (browsers) {
+                case chrome:
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--remote-allow-origins=*");
+                    driver = new ChromeDriver(options);
+                    break;
+                case firefox:
+                    driver = new FirefoxDriver();
+                    break;
+                case ie:
+                    driver = new EdgeDriver();
+                    EdgeOptions options1 = new EdgeOptions();
+                    options1.addArguments("--remote-allow-origins=*");
+                    driver = new EdgeDriver(options1);
+                    break;
             }
         }
-        driver.manage().window().maximize();
-
         return driver;
+    }
+
+    public static void close() {
+        if (driver != null) {
+            driver.quit();
+        }
+        driver = null;
     }
 }
