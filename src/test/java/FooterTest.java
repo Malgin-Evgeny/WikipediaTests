@@ -1,3 +1,4 @@
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,6 +16,8 @@ public class FooterTest extends BaseTest {
     @Test
     public void checkButtonPrivacyPolicy() {
         LOG.info("Проверяем кнопку Политика конфиденциальности");
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollBy(0, 1500)");
         footer.clickButtonPrivacyPolicy();
         Assert.assertEquals(footer.checkURl(), "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy");
     }
