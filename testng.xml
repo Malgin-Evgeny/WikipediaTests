@@ -6,6 +6,7 @@
             <class name="MainPageTest"/>
             <class name="AuthorizationTest"/>
             <class name="FooterTest"/>
+            <class name="AuthenticationFunctionalTests"></class>
         </classes>
     </test>
 </suite>
